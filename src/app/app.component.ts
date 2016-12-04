@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
+import {ContactsComponent} from "./contacts/contacts.component";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  entryComponents: [ContactsComponent]
 })
 export class AppComponent {
-  people = [
-    { firstName: 'Misko', lastName: 'Hevery', company: 'Google' },
-    { firstName: 'Bobby', lastName: 'Stephenson', company: 'Google' }
-  ]
+  title = "Super application Angular 2";
 }
