@@ -16,4 +16,17 @@ export class ContactService {
     return this.http.get('http://localhost:3000/contacts/' + id).map(res => res.json() as Contact);
   }
 
+  deleteContact(id: string) : Observable<any> {
+    return this.http.delete('http://localhost:3000/contacts/' + id);
+  }
+
+  addFakeContacts() : Observable<any> {
+    return this.http.post('http://localhost:3000/addFakeData', '');
+  }
+
+  addContact(contact: Contact) : Observable<any> {
+    console.log(contact);
+    return this.http.post('http://localhost:3000/contacts', contact);
+  }
+
 }
