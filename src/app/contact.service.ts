@@ -8,9 +8,12 @@ import {Contact} from "./contact";
 export class ContactService {
   constructor(private http: Http) { }
 
-  getContacts() {
+  getContacts() : Observable<Contact[]> {
     return this.http.get('http://localhost:3000/contacts').map(res => res.json() as Contact[]);
   }
 
+  getContact(id: string) : Observable<Contact> {
+    return this.http.get('http://localhost:3000/contacts/' + id).map(res => res.json() as Contact);
+  }
 
 }
