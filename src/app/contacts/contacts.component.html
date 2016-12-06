@@ -1,11 +1,18 @@
 <h2>{{ title }}</h2>
-<ul>
-  <li *ngFor="let contact of contacts">
-    <a routerLink="/contact/{{contact._id}}" routerLinkActive="active">{{ contact.firstName }} {{ contact.lastName }}</a>
-    <button (click) = "deleteContact(contact._id)">Supprimer</button>
+<ul class="list-group">
+  <li *ngFor="let contact of contacts" class="list-group-item">
+    <div class="row">
+      <div class="col-md-9">{{ contact.firstName }} {{ contact.lastName }}</div>
+      <div class="col-md-3">
+        <a routerLink="/contact/{{contact._id}}" class="btn btn-default btn-sm">Détails</a>
+        <button class="btn btn-primary btn-sm">Modifier</button>
+        <button (click) = "deleteContact(contact._id)" class="btn btn-danger btn-sm">Supprimer</button>
+      </div>
+    </div>
   </li>
 </ul>
-<button (click) = "addFakeContacts()">Add fake contacts</button>
+<button (click) = "addFakeContacts()" class="btn btn-default pull-right">Ajouter contacts fictifs</button>
 
-<contact-form (contactAdded)="getContacts()"></contact-form>
+
+<contact-form (contactAdded) = "getContacts()"></contact-form>
 
