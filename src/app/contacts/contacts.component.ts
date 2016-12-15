@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {ContactService} from "../contact.service";
 import {Contact} from "../contact";
 import {ContactFormComponent} from "../contact-form/contact-form.component";
@@ -8,24 +8,26 @@ import {ContactFormComponent} from "../contact-form/contact-form.component";
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css'],
   entryComponents: [ContactFormComponent],
-  providers: [ContactService]
 })
 export class ContactsComponent implements OnInit {
-  title = "Liste de vos contacts";
   contacts: Contact[];
 
-  constructor(private contactService: ContactService) { }
+  constructor(private cs: ContactService) {
+    this.cs.contactAddedEvent.subscribe(
+      contact => this.contacts.push(contact)
+    )
+  }
 
   ngOnInit() {
     this.getContacts();
   }
 
   getContacts() : void {
-    this.contactService.getContacts().subscribe(contacts => this.contacts = contacts);
+    this.cs.getContacts().subscribe(contacts => this.contacts = contacts);
   }
 
   deleteContact(id: string) : void {
-    this.contactService.deleteContact(id).subscribe(() => {
+    this.cs.deleteContact(id).subscribe(() => {
         let index = this.contacts.findIndex(c => c._id === id);
         console.log('index: ' + index);
         this.contacts.splice(index, 1);
@@ -34,9 +36,17 @@ export class ContactsComponent implements OnInit {
   }
 
   addFakeContacts() {
-    this.contactService.addFakeContacts().subscribe(
+    this.cs.addFakeContacts().subscribe(
       result => this.getContacts()
     )
+  }
+
+  setEditedContact(contact: Contact) {
+    this.cs.contactEditedEvent.emit(contact);
+  }
+
+  setDetailedContact(contact: Contact) {
+    this.cs.contactDetailedEvent.emit(contact);
   }
 
 }

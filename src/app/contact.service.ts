@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, EventEmitter, Output} from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -7,6 +7,12 @@ import {Contact} from "./contact";
 @Injectable()
 export class ContactService {
   constructor(private http: Http) { }
+
+  editedContact = null;
+  detailedContact = null;
+  @Output() contactEditedEvent = new EventEmitter<Contact>();
+  @Output() contactAddedEvent = new EventEmitter<Contact>();
+  @Output() contactDetailedEvent = new EventEmitter<Contact>();
 
   getContacts() : Observable<Contact[]> {
     return this.http.get('http://localhost:3000/contacts').map(res => res.json() as Contact[]);
@@ -25,8 +31,11 @@ export class ContactService {
   }
 
   addContact(contact: Contact) : Observable<any> {
-    console.log(contact);
     return this.http.post('http://localhost:3000/contacts', contact);
+  }
+
+  editContact(id: string, contact: Contact) : Observable<any> {
+    return this.http.put('http://localhost:3000/contacts/' + id, contact);
   }
 
 }

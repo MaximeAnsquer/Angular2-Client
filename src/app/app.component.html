@@ -1,3 +1,13 @@
-<h1>{{ title }}</h1>
+<h1>Super application Angular 2</h1>
 
-<router-outlet></router-outlet>
+<contacts *ngIf="!editedContact && !detailedContact"></contacts>
+
+<contact-form *ngIf="!editedContact && !detailedContact">
+</contact-form>
+
+<contact-edit *ngIf="editedContact"
+              [editedContact]="editedContact">
+</contact-edit>
+
+<contact-details *ngIf="detailedContact"
+                 [detailedContact]="detailedContact"></contact-details>

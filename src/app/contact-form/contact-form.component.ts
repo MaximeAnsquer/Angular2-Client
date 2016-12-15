@@ -6,16 +6,15 @@ import {ContactService} from "../contact.service";
   templateUrl: 'contact-form.component.html'
 })
 export class ContactFormComponent {
-  constructor(private contactService: ContactService) { }
+  constructor(private cs: ContactService) { }
 
-  contact = new Contact('', '', '');
-  submitted = false;
-  @Output() contactAdded = new EventEmitter();
+  @Input() contact = new Contact('', '', '');
 
   onSubmit() {
-    this.submitted = true;
-    this.contactService.addContact(this.contact).subscribe(
-      result => this.contactAdded.emit()
+    this.cs.addContact(this.contact).subscribe(
+      result => {
+        this.cs.contactAddedEvent.emit(this.contact)
+      }
     );
   }
 }

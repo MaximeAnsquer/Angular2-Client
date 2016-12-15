@@ -1,18 +1,22 @@
-<h2>{{ title }}</h2>
-<ul class="list-group">
-  <li *ngFor="let contact of contacts" class="list-group-item">
-    <div class="row">
-      <div class="col-md-9">{{ contact.firstName }} {{ contact.lastName }}</div>
-      <div class="col-md-3">
-        <a routerLink="/contact/{{contact._id}}" class="btn btn-default btn-sm">Détails</a>
-        <button class="btn btn-primary btn-sm">Modifier</button>
-        <button (click) = "deleteContact(contact._id)" class="btn btn-danger btn-sm">Supprimer</button>
+<h2>{{ Contacts }}</h2>
+<div>
+  <ul class="list-group" >
+    <li *ngFor="let contact of contacts" class="list-group-item">
+      <div class="row">
+        <div class="col-md-9">{{ contact.firstName }} {{ contact.lastName }}</div>
+        <div class="col-md-3">
+          <a class="btn btn-default btn-sm" (click) = "setDetailedContact(contact)">Détails</a>
+          <a class="btn btn-primary btn-sm" (click) = "setEditedContact(contact)">Modifier</a>
+          <a (click) = "deleteContact(contact._id)" class="btn btn-danger btn-sm">Supprimer</a>
+        </div>
       </div>
-    </div>
-  </li>
-</ul>
-<button (click) = "addFakeContacts()" class="btn btn-default pull-right">Ajouter contacts fictifs</button>
+    </li>
+  </ul>
+  <button (click) = "addFakeContacts()" class="btn btn-default pull-right">Ajouter contacts fictifs</button>
+</div>
 
+<!--<contact-edit *ngIf="editingContact"></contact-edit>-->
 
-<contact-form (contactAdded) = "getContacts()"></contact-form>
+<!--<contact-form (contactAdded) = "getContacts()">-->
+<!--</contact-form>-->
 

@@ -1,12 +1,26 @@
 import { Component } from '@angular/core';
 import {ContactsComponent} from "./contacts/contacts.component";
+import {Contact} from "./contact";
+import {ContactService} from "./contact.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  entryComponents: [ContactsComponent]
 })
 export class AppComponent {
-  title = "Super application Angular 2";
+
+  editedContact = null;
+  detailedContact = null;
+
+  constructor(private cs: ContactService) {
+    this.cs.contactEditedEvent.subscribe(
+      contact => this.editedContact = contact
+    );
+    this.cs.contactDetailedEvent.subscribe(
+      contact => this.detailedContact = contact
+    )
+  }
+
+
 }
