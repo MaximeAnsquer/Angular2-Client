@@ -14,7 +14,7 @@ export class ContactsComponent implements OnInit {
 
   constructor(private cs: ContactService) {
     this.cs.contactAddedEvent.subscribe(
-      contact => this.contacts.push(contact)
+      result => this.getContacts()
     )
   }
 
